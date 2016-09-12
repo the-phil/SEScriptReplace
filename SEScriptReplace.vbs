@@ -2,7 +2,7 @@
 ' Info
 '###############################################################################
 ' SE Script Replace
-' Version : 2016091200
+' Version : 2016091202
 '
 ' How to Use : 
 '   Run from the command line
@@ -30,7 +30,7 @@
 '   This script can also be ran in the saved games folder to update the ships
 '       that currently exist, not sure if they auto update based on the mod.
 '   This script will search for existing platformID variables for the IOS ATI
-'       SE in game script. As long as the default is "Exmple" it will be replaced.
+'       SE in game script. As long as the default is "Exmpl" it will be replaced.
 
 ' Author(s) :
 '   Phil Allen phil@hilands.com
@@ -143,19 +143,19 @@ Function ReplaceScript(strFileName)
 			'Wscript.Echo "platformid Loc: " & intPlatformIDStart
 			'Wscript.Echo Mid(strNewScript,InStr(strNewScript, "string platformID"), 30)
 			intPlatformIDStart = intPlatformIDStart + 18
-			'Wscript.Echo "idname start loc: " & InStr(intPlatformIDStart, strNewScript, Chr(34))
-			intQuoteStart = InStr(intPlatformIDStart, strNewScript, Chr(34))
-			intQuoteEnd = InStr(intQuoteStart+1, strNewScript, Chr(34))
+			'Wscript.Echo "idname start loc: " & InStr(intPlatformIDStart, refNode.text, Chr(34))
+			intQuoteStart = InStr(intPlatformIDStart, refNode.text, Chr(34))+1
+			intQuoteEnd = InStr(intQuoteStart, refNode.text, Chr(34))
 			intQuoteLength = intQuoteEnd-intQuoteStart
 			'Wscript.Echo intQuoteStart & " " & intQuoteEnd & " " & intQuoteLength
 			'Wscript.Echo "pid : " & Mid(strNewScript, intQuoteStart, (intQuoteStart-intQuoteEnd))
 			' this gets the first found string platformid quoted stuff.
-			'Wscript.Echo Mid(strNewScript, intQuoteStart+1, intQuoteLength-1)
-			strPlatformID = Mid(strNewScript, intQuoteStart+1, intQuoteLength-1)
-			' need to find Exmple and replace it with strPlatformID.
-			strNewScript = Replace(strNewScript, "Exmpl", strPlatformID)
+			strPlatformID = Mid(refNode.text, intQuoteStart, intQuoteLength)
+			'Wscript.Echo "PlatformID: " & strPlatformID
+			' need to find Exmpl and replace it with strPlatformID.
+			strNewScriptReplaced = Replace(strNewScript, "Exmpl", strPlatformID)
 
-			refNode.text = strNewScript
+			refNode.text = strNewScriptReplaced
 			boolMadeChange = True
 		End If
 	Next
