@@ -153,14 +153,14 @@ Function ReplaceScript(strFileName)
 			'Wscript.Echo Mid(strNewScript, intQuoteStart+1, intQuoteLength-1)
 			strPlatformID = Mid(strNewScript, intQuoteStart+1, intQuoteLength-1)
 			' need to find Exmple and replace it with strPlatformID.
-			strNewScript = Replace(strNewScript, "Exmple", strPlatformID)
+			strNewScript = Replace(strNewScript, "Exmpl", strPlatformID)
 
 			refNode.text = strNewScript
 			boolMadeChange = True
 		End If
 	Next
 	if boolMadeChange Then
-		'refXML.save(strFileName)
+		refXML.save(strFileName)
 		strLog = TodayDateTime() & " - Modified " & strFileName & vbcrlf
 		boolLog = Logger(strLogFile, strLog)
 	End If
